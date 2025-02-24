@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Rutan Pelaihari</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div class="min-h-screen flex items-center justify-center bg-[#07213d]">
+    <div class="bg-[#e0e2e3] p-8 rounded-lg shadow-lg w-full max-w-md">
+      <!-- Logo Instansi -->
+      <img 
+        src="https://www.ditjenpas.go.id/uploads/images/image_1680x_676439654a607.jpg" 
+        alt="Logo Instansi Kementerian" 
+        class="mx-auto mb-6 w-40 h-auto rounded-md"
+      >
+      <h1 class="text-center text-xl font-bold mb-4 text-[#07213d]">Selamat Datang di SINORI</h1>
+      <h2 class="text-center text-xl font-bold mb-4 text-[#07213d]">Sistem Informasi Surat Keluar Rutan Pelaihari</h2>
+      <form id="loginForm">
+        <div class="mb-4">
+          <label for="nip" class="block text-sm font-medium text-[#07213d]">NIP</label>
+          <input 
+            type="text" 
+            id="nip" 
+            name="nip" 
+            class="mt-1 block w-full px-3 py-2 border border-[#e0e2e3] rounded-md shadow-sm focus:outline-none focus:ring-[#daae53] focus:border-[#daae53]" 
+            required
+          >
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-[#07213d]">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="mt-1 block w-full px-3 py-2 border border-[#e0e2e3] rounded-md shadow-sm focus:outline-none focus:ring-[#daae53] focus:border-[#daae53]" 
+            required
+          >
+        </div>
+        <div class="flex items-center mb-4">
+          <input 
+            type="checkbox" 
+            id="rememberMe" 
+            class="h-4 w-4 text-[#daae53] focus:ring-[#daae53] border-gray-300 rounded"
+          >
+          <label for="rememberMe" class="ml-2 block text-sm text-[#07213d]">Ingat Saya</label>
+        </div>
+        <button 
+          type="submit" 
+          class="w-full bg-[#daae53] text-white py-2 px-4 rounded-md hover:bg-[#07213d] transition duration-300"
+        >
+          Login
+        </button>
+      </form>
+      <p id="errorMessage" class="mt-4 bg-[#07213d] text-white text-center py-2 rounded-md hidden">Username atau Password salah</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const nip = document.getElementById('nip').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('https://script.google.com/macros/s/AKfycbxtipDKdyjdno6G3g4naC8Xd5GBeaMyDfhsXngPdOeSv2RgvthFsVTEdxSz5YzQfqJT/exec?nip=' + nip + '&password=' + password);
+      const result = await response.json();
+
+      if (result.success) {
+        window.location.href = '/dashboard.html'; // Redirect ke dashboard
+      } else {
+        document.getElementById('errorMessage').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

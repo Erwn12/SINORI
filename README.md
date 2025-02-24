@@ -1,2 +1,2 @@
 # SINORI
-Sistem Informasi Penomorasn Surat keluar Rutan Pelaihari
+Sistem Informasi Penomoran Surat keluar Rutan Pelaihari

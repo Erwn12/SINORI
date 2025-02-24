@@ -12,7 +12,7 @@
 
     // Cek hasil validasi
     if (result.success) {
-      window.location.href = '/dashboard.html'; // Redirect ke dashboard jika login berhasil
+      window.location.href = 'https://erwn12.github.io/SINORI/dashboard'; // Redirect ke dashboard jika login berhasil
     } else {
       document.getElementById('errorMessage').classList.remove('hidden'); // Tampilkan pesan kesalahan
     }

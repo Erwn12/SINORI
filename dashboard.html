@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Instansi Kementerian</title>
+  <!-- Tambahkan Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#e0e2e3] text-gray-800 min-h-screen flex flex-col">
+  <!-- Header (Navbar) -->
+  <header class="bg-[#07213d] text-white py-4 px-6 shadow-md">
+    <div class="flex justify-between items-center">
+      <h1 class="text-xl font-bold">Dashboard</h1>
+      <button 
+        class="bg-[#daae53] text-white px-4 py-2 rounded-md hover:bg-[#b89445] transition duration-300"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <!-- Card Statistik 1 -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-lg font-bold text-[#07213d]">Total Pegawai</h2>
+        <p class="text-2xl text-[#daae53] font-bold mt-2">120</p>
+      </div>
+
+      <!-- Card Statistik 2 -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-lg font-bold text-[#07213d]">Pegawai Aktif</h2>
+        <p class="text-2xl text-[#daae53] font-bold mt-2">100</p>
+      </div>
+
+      <!-- Card Statistik 3 -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-lg font-bold text-[#07213d]">Pegawai Tidak Aktif</h2>
+        <p class="text-2xl text-[#daae53] font-bold mt-2">20</p>
+      </div>
+    </div>
+
+    <!-- Tabel Data Pegawai -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold text-[#07213d] mb-4">Daftar Pegawai</h2>
+      <table class="w-full text-sm text-left">
+        <thead class="bg-[#daae53] text-white">
+          <tr>
+            <th class="px-4 py-2">NIP</th>
+            <th class="px-4 py-2">Nama</th>
+            <th class="px-4 py-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-200">
+            <td class="px-4 py-2">123456789</td>
+            <td class="px-4 py-2">John Doe</td>
+            <td class="px-4 py-2 text-green-600 font-bold">Aktif</td>
+          </tr>
+          <tr class="border-b border-gray-200">
+            <td class="px-4 py-2">987654321</td>
+            <td class="px-4 py-2">Jane Smith</td>
+            <td class="px-4 py-2 text-red-600 font-bold">Tidak Aktif</td>
+          </tr>
+          <tr class="border-b border-gray-200">
+            <td class="px-4 py-2">567890123</td>
+            <td class="px-4 py-2">Alice Johnson</td>
+            <td class="px-4 py-2 text-green-600 font-bold">Aktif</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#07213d] text-white py-4 px-6 text-center">
+    <p>&copy; 2023 Instansi Kementerian. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript untuk Logout -->
+  <script>
+    function logout() {
+      if (confirm('Apakah Anda yakin ingin keluar?')) {
+        window.location.href = '/index.html'; // Redirect ke halaman login
+      }
+    }
+  </script>
+</body>
+</html>

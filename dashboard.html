@@ -70,7 +70,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyKHFMNxbpjG7STgOOo5vRlidxb1Gf7w6FN6Tt5zzuzegUi1IEVug2cU6GXLYVNfcgxvQ/exec";
+    const API_URL = "https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec";
 
     async function fetchData() {
       try {
@@ -86,7 +86,7 @@
 
     function renderTable(data) {
       const tableBody = document.getElementById("data-table");
-      tableBody.innerHTML = ""; // Kosongkan tabel sebelum menambahkan data baru
+      tableBody.innerHTML = "";
 
       if (data.length === 0) {
         tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Tidak ada data</td></tr>`;
@@ -136,13 +136,13 @@
       const user = "admin"; // Ganti dengan username login
 
       const method = id ? "update" : "create";
-      const body = { id, nomorBerkas, alamatPenerima, tanggal, user };
+      const body = { action: method, id, nomorBerkas, alamatPenerima, tanggal, user };
 
       try {
         const response = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: method, ...body }),
+          body: JSON.stringify(body),
         });
 
         if (response.ok) {

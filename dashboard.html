@@ -1,78 +1,157 @@
-<div class="flex min-h-screen bg-[#e0e2e3]">
-  <!-- Sidebar -->
-  <aside class="w-64 bg-[#07213d] text-white p-4">
-    <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
-    <ul class="space-y-2">
-      <li><a href="#" class="block px-4 py-2 hover:bg-[#daae53] rounded">Dashboard</a></li>
-      <li><a href="#" class="block px-4 py-2 hover:bg-[#daae53] rounded">Kelola Pengguna</a></li>
-      <li><a href="#" class="block px-4 py-2 hover:bg-[#daae53] rounded">Nomor Surat</a></li>
-      <li><a href="#" class="block px-4 py-2 hover:bg-[#daae53] rounded">Pengaturan</a></li>
-    </ul>
-  </aside>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#07213d] text-white p-4 h-screen fixed">
+      <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
+      <ul>
+        <li class="mb-2"><a href="#" class="hover:text-[#daae53]">Dashboard</a></li>
+        <li><a href="#" class="hover:text-[#daae53]" onclick="logout()">Logout</a></li>
+      </ul>
+    </aside>
 
-  <!-- Main Content -->
-  <div class="flex-1 flex flex-col">
-    <!-- Header -->
-    <header class="bg-[#07213d] text-white py-4 px-6 shadow-md flex justify-between items-center">
-      <h1 class="text-xl font-bold">Dashboard Admin</h1>
-      <button 
-        class="bg-[#daae53] text-white px-4 py-2 rounded hover:bg-[#b89445]"
-        onclick="logout()"
-      >
-        Logout
-      </button>
-    </header>
-
-    <!-- Content -->
-    <main class="p-6 flex-1">
-      <h2 class="text-2xl font-bold text-[#07213d] mb-6">Selamat Datang, Admin!</h2>
-      <!-- Statistik Ringkas -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="text-lg font-bold text-[#07213d]">Total Pengguna</h3>
-          <p class="text-2xl text-[#daae53] font-bold mt-2">120</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="text-lg font-bold text-[#07213d]">Pegawai Aktif</h3>
-          <p class="text-2xl text-[#daae53] font-bold mt-2">100</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="text-lg font-bold text-[#07213d]">Pegawai Tidak Aktif</h3>
-          <p class="text-2xl text-[#daae53] font-bold mt-2">20</p>
-        </div>
-      </div>
-
-      <!-- Grafik Statistik -->
-      <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h3 class="text-xl font-bold text-[#07213d] mb-4">Statistik Pegawai</h3>
-        <canvas id="chart"></canvas>
-      </div>
-
-      <!-- Tabel Pengguna -->
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h3 class="text-xl font-bold text-[#07213d] mb-4">Daftar Pengguna</h3>
-        <table class="w-full text-sm text-left">
-          <thead class="bg-[#daae53] text-white">
-            <tr>
-              <th class="px-4 py-2">NIP</th>
-              <th class="px-4 py-2">Nama</th>
-              <th class="px-4 py-2">Status</th>
-              <th class="px-4 py-2">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-2">123456789</td>
-              <td class="px-4 py-2">John Doe</td>
-              <td class="px-4 py-2 text-green-600 font-bold">Aktif</td>
-              <td class="px-4 py-2">
-                <button class="bg-blue-500 text-white px-2 py-1 rounded">Edit</button>
-                <button class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- Main Content -->
+    <main class="ml-64 p-6">
+      <h1 class="text-2xl font-bold mb-4">Data Surat</h1>
+      <button onclick="openModal()" class="bg-[#daae53] text-white px-4 py-2 rounded-md mb-4">Tambah Data Baru</button>
+      <table class="w-full bg-white border-collapse">
+        <thead>
+          <tr class="bg-[#07213d] text-white">
+            <th class="px-4 py-2">No Surat</th>
+            <th class="px-4 py-2">Nomor Berkas</th>
+            <th class="px-4 py-2">Alamat Penerima</th>
+            <th class="px-4 py-2">Tanggal</th>
+            <th class="px-4 py-2">User</th>
+            <th class="px-4 py-2">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="data-table">
+          <!-- Data akan dimuat di sini -->
+        </tbody>
+      </table>
     </main>
   </div>
-</div>
+
+  <!-- Modal untuk Tambah/Edit Data -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg w-96">
+      <h2 class="text-xl font-bold mb-4">Tambah/Edit Data</h2>
+      <form id="data-form">
+        <input type="hidden" id="id" />
+        <div class="mb-4">
+          <label for="noSurat" class="block text-sm font-medium">No Surat</label>
+          <input type="text" id="noSurat" class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+        <div class="mb-4">
+          <label for="nomorBerkas" class="block text-sm font-medium">Nomor Berkas</label>
+          <input type="text" id="nomorBerkas" class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+        <div class="mb-4">
+          <label for="alamatPenerima" class="block text-sm font-medium">Alamat Penerima</label>
+          <input type="text" id="alamatPenerima" class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+        <div class="mb-4">
+          <label for="tanggal" class="block text-sm font-medium">Tanggal</label>
+          <input type="date" id="tanggal" class="w-full px-3 py-2 border rounded-md" required />
+        </div>
+        <button type="submit" class="bg-[#daae53] text-white px-4 py-2 rounded-md">Simpan</button>
+        <button type="button" onclick="closeModal()" class="ml-2 bg-gray-300 text-gray-800 px-4 py-2 rounded-md">Batal</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyKHFMNxbpjG7STgOOo5vRlidxb1Gf7w6FN6Tt5zzuzegUi1IEVug2cU6GXLYVNfcgxvQ/exec";
+
+    async function fetchData() {
+      const response = await fetch(`${API_URL}?action=read`);
+      const data = await response.json();
+      renderTable(data);
+    }
+
+    function renderTable(data) {
+      const tableBody = document.getElementById("data-table");
+      tableBody.innerHTML = "";
+      data.forEach(item => {
+        const row = `
+          <tr>
+            <td class="border px-4 py-2">${item["No Surat"]}</td>
+            <td class="border px-4 py-2">${item["Nomor Berkas"]}</td>
+            <td class="border px-4 py-2">${item["Alamat Penerima"]}</td>
+            <td class="border px-4 py-2">${item["Tanggal"]}</td>
+            <td class="border px-4 py-2">${item["User"]}</td>
+            <td class="border px-4 py-2">
+              <button onclick="editData('${item["No Surat"]}', '${item["Nomor Berkas"]}', '${item["Alamat Penerima"]}', '${item["Tanggal"]}', '${item["User"]}')">Edit</button>
+              <button onclick="deleteData('${item["No Surat"]}')">Hapus</button>
+            </td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    }
+
+    function openModal() {
+      document.getElementById("modal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+      document.getElementById("data-form").reset();
+    }
+
+    document.getElementById("data-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("id").value;
+      const noSurat = document.getElementById("noSurat").value;
+      const nomorBerkas = document.getElementById("nomorBerkas").value;
+      const alamatPenerima = document.getElementById("alamatPenerima").value;
+      const tanggal = document.getElementById("tanggal").value;
+      const user = "admin"; // Ganti dengan username login
+
+      const method = id ? "update" : "create";
+      const body = { id, noSurat, nomorBerkas, alamatPenerima, tanggal, user };
+
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: method, ...body }),
+      });
+
+      if (response.ok) {
+        closeModal();
+        fetchData();
+      }
+    });
+
+    async function editData(noSurat, nomorBerkas, alamatPenerima, tanggal, user) {
+      document.getElementById("id").value = noSurat;
+      document.getElementById("noSurat").value = noSurat;
+      document.getElementById("nomorBerkas").value = nomorBerkas;
+      document.getElementById("alamatPenerima").value = alamatPenerima;
+      document.getElementById("tanggal").value = tanggal;
+      openModal();
+    }
+
+    async function deleteData(id) {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "delete", id }),
+      });
+
+      if (response.ok) {
+        fetchData();
+      }
+    }
+
+    fetchData();
+  </script>
+</body>
+</html>

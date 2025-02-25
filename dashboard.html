@@ -13,7 +13,7 @@
       <h2 class="text-xl font-bold mb-6">Admin Panel</h2>
       <ul>
         <li class="mb-2"><a href="#" class="hover:text-[#daae53]">Dashboard</a></li>
-        <li><a href="#" class="hover:text-[#daae53]" onclick="logout()">Logout</a></li>
+        <li><a href="#" class="hover:text-[#daae53]" onclick="confirmLogout()">Logout</a></li>
       </ul>
     </aside>
 
@@ -142,6 +142,13 @@
 
       if (response.ok) {
         fetchData();
+      }
+    }
+
+    // Fungsi untuk konfirmasi logout
+    function confirmLogout() {
+      if (confirm("Apakah Anda ingin keluar dari SINORI?")) {
+        window.location.href = "https://erwn12.github.io/SINORI/";
       }
     }
 

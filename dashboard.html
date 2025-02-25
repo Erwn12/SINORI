@@ -46,10 +46,6 @@
       <form id="data-form">
         <input type="hidden" id="id" />
         <div class="mb-4">
-          <label for="noSurat" class="block text-sm font-medium">No Surat</label>
-          <input type="text" id="noSurat" class="w-full px-3 py-2 border rounded-md" required />
-        </div>
-        <div class="mb-4">
           <label for="nomorBerkas" class="block text-sm font-medium">Nomor Berkas</label>
           <input type="text" id="nomorBerkas" class="w-full px-3 py-2 border rounded-md" required />
         </div>
@@ -109,14 +105,13 @@
     document.getElementById("data-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const id = document.getElementById("id").value;
-      const noSurat = document.getElementById("noSurat").value;
       const nomorBerkas = document.getElementById("nomorBerkas").value;
       const alamatPenerima = document.getElementById("alamatPenerima").value;
       const tanggal = document.getElementById("tanggal").value;
       const user = "admin"; // Ganti dengan username login
 
       const method = id ? "update" : "create";
-      const body = { id, noSurat, nomorBerkas, alamatPenerima, tanggal, user };
+      const body = { id, nomorBerkas, alamatPenerima, tanggal, user };
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -132,10 +127,9 @@
 
     async function editData(noSurat, nomorBerkas, alamatPenerima, tanggal, user) {
       document.getElementById("id").value = noSurat;
-      document.getElementById("noSurat").value = noSurat;
       document.getElementById("nomorBerkas").value = nomorBerkas;
       document.getElementById("alamatPenerima").value = alamatPenerima;
-      document.getElementById("tanggal").value = tanggal;
+      document.getElementById("tanggal").valueAsDate = new Date(tanggal.split("-").reverse().join("-")); // Format DD-MM-YYYY ke Date object
       openModal();
     }
 

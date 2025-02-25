@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Feather Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body class="bg-gray-100">
   <div class="flex">
@@ -99,14 +101,21 @@
             <td class="border px-4 py-2">${item["Alamat Penerima"]}</td>
             <td class="border px-4 py-2">${item["Tanggal"]}</td>
             <td class="border px-4 py-2">${item["User"]}</td>
-            <td class="border px-4 py-2">
-              <button onclick="editData('${item["No Surat"]}', '${item["Nomor Berkas"]}', '${item["Alamat Penerima"]}', '${item["Tanggal"]}', '${item["User"]}')">Edit</button>
-              <button onclick="deleteData('${item["No Surat"]}')">Hapus</button>
+            <td class="border px-4 py-2 flex gap-2 justify-center">
+              <button onclick="editData('${item["No Surat"]}', '${item["Nomor Berkas"]}', '${item["Alamat Penerima"]}', '${item["Tanggal"]}', '${item["User"]}')">
+                <i data-feather="edit" class="text-blue-500 cursor-pointer"></i>
+              </button>
+              <button onclick="deleteData('${item["No Surat"]}')">
+                <i data-feather="trash" class="text-red-500 cursor-pointer"></i>
+              </button>
             </td>
           </tr>
         `;
         tableBody.innerHTML += row;
       });
+
+      // Inisialisasi Feather Icons
+      feather.replace();
     }
 
     function openModal() {
